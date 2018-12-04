@@ -1,11 +1,3 @@
-/***************************************************************************
- * *    Inf2C-CS Coursework 2: Cache Simulation
- * *
- * *    Instructor: Boris Grot
- * *
- * *    TA: Siavash Katebzadeh
- ***************************************************************************/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,11 +5,8 @@
 #include <inttypes.h>
 #include <math.h>
 #include <time.h>
-/* Do not add any more header files */
 
-/*
- * Various structures
- */
+
 typedef enum {FIFO, LRU, Random} replacement_p;
 
 const char* get_replacement_policy(uint32_t p) {
@@ -34,7 +23,7 @@ typedef struct {
     uint32_t address;
 } mem_access_t;
 
-// These are statistics for the cache and should be maintained by you.
+
 typedef struct {
     uint32_t cache_hits;
     uint32_t cache_misses;
@@ -51,9 +40,7 @@ uint32_t number_of_cache_blocks = 0;
 uint32_t cache_block_size = 0;
 
 
-/*
- * Each of the variables below must be populated by you.
- */
+
 uint32_t g_num_cache_tag_bits = 0;
 uint32_t g_cache_offset_bits= 0;
 result_t g_result;
@@ -81,7 +68,6 @@ mem_access_t read_transaction(FILE *ptr_file) {
 }
 
 void print_statistics(uint32_t num_cache_tag_bits, uint32_t cache_offset_bits, result_t* r) {
-    /* Do Not Modify This Function */
 
     uint32_t cache_total_hits = r->cache_hits;
     uint32_t cache_total_misses = r->cache_misses;
@@ -92,11 +78,7 @@ void print_statistics(uint32_t num_cache_tag_bits, uint32_t cache_offset_bits, r
     printf("Cache:hit-rate:%2.1f%%\n", cache_total_hits / (float)(cache_total_hits + cache_total_misses) * 100.0);
 }
 
-/*
- *
- * Add any global variables and/or functions here as needed.
- *
- */
+
 typedef struct {
     uint32_t tag;
     int accessCounter;
@@ -290,7 +272,7 @@ int main(int argc, char** argv) {
         if (access.address == 0)
             break;
 
-        /* Add your code here */
+        
 
         uint32_t tag = access.address >> (num_set_index_bits + g_cache_offset_bits);
         uint32_t set_index = (access.address >> g_cache_offset_bits ) % (tag << num_set_index_bits);
@@ -317,8 +299,6 @@ int main(int argc, char** argv) {
     free(cacheTable);
     
 
-    /* Do not modify code below. */
-    /* Make sure that all the parameters are appropriately populated. */
     print_statistics(g_num_cache_tag_bits, g_cache_offset_bits, &g_result);
 
     /* Close the trace file. */
